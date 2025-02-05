@@ -32,9 +32,17 @@ class Game:
         """
         self.number = random.randint(1,6)
 
+        print(attacker.name, "attacks!!!")
+
+        defender.health -= self.number
+        if defender.health <= 0:
+            print("DEFEATED, BATTLE OVER")
 
         
-        print(self.number)
+        print(defender.name ," took ",self.number ,"damage and has ", defender.health, " health left")
+
+
+        
 
 
     def start_battle(self) -> None:
@@ -46,11 +54,12 @@ class Game:
                 1.4. If Player 1 is defeated, break the loop.
             2. Print the result of the battle.
         """
-        if self.alice.health <= 0:
-            print("FAIL BATTLE")
-        else:
-            print("BATTLE CONTINUE")
+        while self.alice.health > 0 and self.bob.health > 0:
             self.attack(self.alice, self.bob)
+            if self.bob.health > 0:
+                self.attack(self.bob, self.alice)
+            else:
+                break
 
 
 
