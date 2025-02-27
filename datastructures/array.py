@@ -26,10 +26,10 @@ class Array(IArray[T]):
 
         self.data_type = data_type
 
-        if (type(self.sequence)) != list :
+        if not isinstance(starting_sequence, Sequence):
             raise ValueError("ignore")
         
-        if type(self.sequence[0]) != self.data_type:
+        if not all(isinstance(item, self.data_type) for item in self.sequence):
             raise TypeError("ignore")
         
 
@@ -45,9 +45,9 @@ class Array(IArray[T]):
     @overload
     def __getitem__(self, index: slice) -> Sequence[T]: ...
     def __getitem__(self, index: int | slice) -> T | Sequence[T]:
-        if type(index) == slice:
+        if isinstance(index, slice):
             
-            return self.car[index[0]:len(index)]
+            return Array(self.car[index])
 
         if len(self.car) < index:
             raise IndexError("Index out of bounds")
