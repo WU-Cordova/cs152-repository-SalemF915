@@ -41,7 +41,7 @@ class LinkedList[T](ILinkedList[T]):
 
 
     def append(self, item: T) -> None:
-        if not isinstance(item, self.data_type):
+        if not isinstance(item, int):
             raise TypeError("Test type error, not a object")
 
         new_node = LinkedList.Node(item)
@@ -309,11 +309,53 @@ class LinkedList[T](ILinkedList[T]):
         raise NotImplementedError("LinkedList.__next__ is not implemented")
     
     def __reversed__(self) -> ILinkedList[T]:
-        raise NotImplementedError("LinkedList.__reversed__ is not implemented")
+
+        current = self.head
+
+        while current.next:
+            if current.next is None:
+                return
+            
+            current = current.next
+
+        #interate from the tail all the way back to the head
+        while current :
+            yield current.data
+
+            current = current.previous
+
+
+
+
+
+
+
+
+
+
     
     def __eq__(self, other: object) -> bool:
+
+        if not isinstance(other, LinkedList):
+            raise TypeError("Not a linked list")
+        
         if self.count != other.count:
             return False
+
+        current = self.head
+
+        other_cur = other.head
+
+        while current:
+            if current.data != other_cur.data:
+                return False
+            current = current.next
+            other_cur = other_cur.next
+        
+        return True
+
+
+
 
 
     def __str__(self) -> str:
