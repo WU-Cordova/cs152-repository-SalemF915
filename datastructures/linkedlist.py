@@ -41,7 +41,7 @@ class LinkedList[T](ILinkedList[T]):
 
 
     def append(self, item: T) -> None:
-        if not isinstance(item, int):
+        if not isinstance(item, self.data_type):
             raise TypeError("Test type error, not a object")
 
         new_node = LinkedList.Node(item)
@@ -71,6 +71,11 @@ class LinkedList[T](ILinkedList[T]):
 
 
     def prepend(self, item: T) -> None:
+
+        if not isinstance(item, self.data_type):
+            raise TypeError("Test type error, not a object")
+
+        
         self.count += 1
         new_node = LinkedList.Node(item) #creates new node of data
         new_node.next = self.head # puts the next node as the head
@@ -78,6 +83,10 @@ class LinkedList[T](ILinkedList[T]):
 
 
     def insert_before(self, target: T, item: T) -> None:
+        if not isinstance(item, self.data_type):
+            raise TypeError("Test type error, not a object")
+        if not isinstance(target, self.data_type):
+            raise TypeError("Test type error, not a object")
 
         self.count += 1
         
@@ -118,6 +127,11 @@ class LinkedList[T](ILinkedList[T]):
         
 
     def insert_after(self, target: T, item: T) -> None:
+        if not isinstance(item, self.data_type):
+            raise TypeError("Test type error, not a object")
+        if not isinstance(target, self.data_type):
+            raise TypeError("Test type error, not a object")
+
         self.count += 1
 
         new_node = LinkedList.Node(item)
@@ -150,6 +164,10 @@ class LinkedList[T](ILinkedList[T]):
         raise ValueError("Insert after not found")
 
     def remove(self, item: T) -> None:
+
+
+        if not isinstance(item, self.data_type):
+            raise TypeError("Test type error, not a object")
         current = self.head
         while current:
 
@@ -178,7 +196,13 @@ class LinkedList[T](ILinkedList[T]):
         raise ValueError("Remove not found")
 
     def remove_all(self, item: T) -> None:
+
+        if not isinstance(item, self.data_type):
+            raise TypeError("Test type error, not a object")
+
+
         current = self.head
+
         while current:
 
             if current.data == item:
