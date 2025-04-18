@@ -2,9 +2,9 @@ import os
 from datastructures.istack import IStack
 from typing import Generic
 
-from datastructures.linkedlist import LinkedList
+from datastructures.linkedlist import LinkedList,T
 
-class ListStack[T](Generic[T], IStack[T]):
+class ListStack(IStack[T]):
     """
     ListStack (LinkedList-based Stack)
 
@@ -18,7 +18,9 @@ class ListStack[T](Generic[T], IStack[T]):
             data_type (type): The type of data the stack will hold.
 
         """
-        raise NotImplementedError("ListStack.__init__ is not implemented.")
+        self.stack = []
+        self.datatype = data_type
+        
 
     def push(self, item: T):
         """
@@ -31,7 +33,7 @@ class ListStack[T](Generic[T], IStack[T]):
             TypeError: If the item is not of the correct type.
 
         """
-        raise NotImplementedError("ListStack.push is not implemented.")
+        self.stack.append(item)
 
     def pop(self) -> T:
         """
@@ -43,7 +45,16 @@ class ListStack[T](Generic[T], IStack[T]):
         Raises:
             IndexError: If the stack is empty.
         """
-        raise NotImplementedError("ListStack.pop is not implemented.")
+
+
+
+        _poped = self.stack[-1]
+        del(self.stack[-1])
+
+
+
+
+        return _poped
 
     def peek(self) -> T:
         """
@@ -55,7 +66,7 @@ class ListStack[T](Generic[T], IStack[T]):
         Raises:
             IndexError: If the stack is empty.
         """
-        raise NotImplementedError("ListStack.peek is not implemented.")
+        return self.stack[-1]
 
     @property
     def empty(self) -> bool:
@@ -65,13 +76,16 @@ class ListStack[T](Generic[T], IStack[T]):
         Returns:
             bool: True if the stack is empty, False otherwise.
         """
-        raise NotImplementedError("ListStack.empty is not implemented.")
+        if len(self.stack) == 0:
+            return True
+        else:
+            return False
 
     def clear(self):
         """
         Clears all items from the stack.
         """
-        raise NotImplementedError("ListStack.clear is not implemented.")
+        self.stack = []
 
     def __contains__(self, item: T) -> bool:
         """
@@ -84,7 +98,10 @@ class ListStack[T](Generic[T], IStack[T]):
             bool: True if the item exists in the stack, False otherwise.
 
         """
-        raise NotImplementedError("ListStack.__contains__ is not implemented.")
+        if item in self.stack:
+            return True
+        else:
+            return False
 
     def __eq__(self, other) -> bool:
         """
@@ -97,7 +114,18 @@ class ListStack[T](Generic[T], IStack[T]):
             bool: True if the stacks are equal, False otherwise.
 
         """
-        raise NotImplementedError("ListStack.__eq__ is not implemented.")
+        if not isinstance(other, ListStack):
+            return False
+        
+        if len(self.stack) != len(other.stack):
+            return False
+        
+        for i in self.stack:
+            if self.stack[i] != other.stack[i]:
+                return False
+        
+        return True
+
 
     def __len__(self) -> int:
         """
@@ -106,7 +134,7 @@ class ListStack[T](Generic[T], IStack[T]):
         Returns:
             int: The number of items in the stack.
         """
-        raise NotImplementedError("ListStack.__len__ is not implemented.")
+        return len(self.stack)
 
     def __str__(self) -> str:
         """
